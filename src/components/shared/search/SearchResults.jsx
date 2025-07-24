@@ -3,11 +3,12 @@ import { Link as NextIntlLink } from "@/i18n/navigation";
 import { getLinkHref } from "@/utils/linkHelper";
 import { baseURL } from '@/utils/api';
 import Image from 'next/image';
+import SearchResultSkeleton from '../SearchResultSkeleton';
 
-const SearchResults = ({ isLoading, results, clearSearch, searchTerm }) => {
+const SearchResults = ({ isLoading, results, clearSearch }) => {
   return (
     <div className="absolute top-full mt-2 min-w-xl bg-white border rounded-md shadow-lg z-10 text-black h-[50vh] overflow-y-auto scrl-hide">
-      {isLoading && <p className="p-2">Loading...</p>}
+      {isLoading && <SearchResultSkeleton count={3} />}
       {results && (
         <ul>
           {results.length > 0 ? (
