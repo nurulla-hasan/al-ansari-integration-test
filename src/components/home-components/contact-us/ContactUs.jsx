@@ -7,15 +7,15 @@ import { useForm } from "react-hook-form";
 
 const ContactUs = () => {
     const t = useTranslations("Contact Us");
+    const tCommon = useTranslations("common");
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
         console.log(data);
-        alert("Message sent successfully!");
     };
 
     return (
-        <div className="bg-bg-primary">
+        <div id="contact-us" className="bg-bg-primary md:py-20">
             <PageLayout>
                 <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-10 lg:gap-12">
                     <div className="w-full md:w-1/2 lg:w-2/5 xl:w-1/2 h-64 md:h-auto relative">
@@ -45,7 +45,7 @@ const ContactUs = () => {
                                 registerOptions={{
                                     pattern: {
                                         value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                                        message: "Invalid email address"
+                                        message: tCommon("invalidEmail")
                                     }
                                 }}
                                 error={errors.email}
@@ -70,7 +70,7 @@ const ContactUs = () => {
                                     name="message"
                                     rows="5"
                                     placeholder={t("messagePlaceholder")}
-                                    {...register("message", { required: true, minLength: { value: 10, message: "Message must be at least 10 characters" } })}
+                                    {...register("message", { required: true, minLength: { value: 10, message: tCommon("messageMinLength") } })}
                                     className="w-full px-4 py-3 text-xs border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-btn-bg focus:border-transparent transition-all duration-200 resize-y"
                                 >
                                 </textarea>
