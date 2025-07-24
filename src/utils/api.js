@@ -1,8 +1,10 @@
-
 import axios from "axios";
-export const baseURL = "http://13.62.48.83:5001"
+
+export const baseURL = "http://13.62.48.83:5001";
+
 export const api = axios.create({
-  baseURL: baseURL
+  baseURL: baseURL,
+  timeout: 10000,
 });
 
 api.interceptors.response.use(
