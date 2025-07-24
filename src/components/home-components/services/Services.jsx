@@ -59,7 +59,7 @@ const Services = () => {
                     </div>
                     <div className='flex items-center flex-col gap-3 mt-8 cursor-pointer' onClick={handleScroll}>
                         <h3 className='text-text-title'>{t("contactUs")}</h3>
-                        <ArrowDown className='text-text-muted' size={26} />
+                        <ArrowDown className='text-text-muted animate-bounce' size={26} />
                     </div>
                 </div>
             </PageLayout>
