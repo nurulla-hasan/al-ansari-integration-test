@@ -7,7 +7,7 @@ import SearchResultSkeleton from '../SearchResultSkeleton';
 
 const SearchResults = ({ isLoading, results, clearSearch }) => {
   return (
-    <div className="absolute top-full mt-2 min-w-xl bg-white border rounded-md shadow-lg z-10 text-black h-[50vh] overflow-y-auto scrl-hide">
+    <div className="absolute top-full mt-2 min-w-xl bg-white border rounded-md shadow-lg z-10 text-black max-h-[50vh] overflow-y-auto scrl-hide">
       {isLoading && <SearchResultSkeleton count={3} />}
       {results && (
         <ul>

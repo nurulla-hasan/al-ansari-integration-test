@@ -3,10 +3,11 @@ import { Link as NextIntlLink } from "@/i18n/navigation";
 import { getLinkHref } from "@/utils/linkHelper";
 import { baseURL } from '@/utils/api';
 import Image from 'next/image';
+import SearchResultSkeleton from '../SearchResultSkeleton';
 
-const MobileSearchResults = ({ isLoading, results, clearSearch, searchTerm }) => {
+const MobileSearchResults = ({ isLoading, results, clearSearch }) => {
   if (isLoading) {
-    return <p className="p-2 text-black">Loading...</p>;
+    return <SearchResultSkeleton count={3} />;
   }
 
   if (!results) {
