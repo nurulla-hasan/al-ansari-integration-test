@@ -241,6 +241,7 @@
   },
   "common": {
     "somethingWentWrong": "Something went wrong. Please try again later.",
+
     "noNewsAvailable": "No news available.",
     "seeMore": "see more",
     "invalidEmail": "Invalid email address",
@@ -255,6 +256,8 @@
     "failedToLoadPrivacy": "Failed to load privacy.",
     "failedToLoadSectors": "Failed to load sectors.",
     "failedToLoadTerms": "Failed to load terms and conditions.",
+    "failedToLoadFraud": "Failed to load fraud.",
+    "failedToDisclaimer": "Failed to load disclaimer.",
     "peopleDetails": "People Details",
     "failedToLoadPersonDetails": "Failed to load person details.",
     "personNotFound": "Person not found.",

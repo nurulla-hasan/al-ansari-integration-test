@@ -253,6 +253,8 @@
     "failedToLoadPrivacy": "فشل في تحميل الخصوصية.",
     "failedToLoadSectors": "فشل في تحميل القطاعات.",
     "failedToLoadTerms": "فشل في تحميل الشروط والأحكام.",
+    "failedToLoadFraud": "فشل في تحميل التكلفة.",
+    "failedToDisclaimer": "فشل في تحميل إخلاء المسؤولية.",
     "peopleDetails": "تفاصيل الأشخاص",
     "failedToLoadPersonDetails": "فشل في تحميل تفاصيل الشخص.",
     "personNotFound": "الشخص غير موجود.",
