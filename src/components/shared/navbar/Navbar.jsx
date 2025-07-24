@@ -1,6 +1,10 @@
 "use client"
 import { useTranslations } from "next-intl";
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
+import { useQuery } from "@tanstack/react-query";
+import { fetchSearchResults } from "@/utils/api";
+import SearchResults from "../search/SearchResults";
+import MobileSearchResults from "../search/MobileSearchResults";
 import { Search, Menu, X } from "lucide-react"
 
 import { usePathname } from "@/i18n/navigation";
@@ -19,6 +23,33 @@ const Navbar = () => {
     const [searchValue, setSearchValue] = useState("")
     const [debouncedValue, setDebouncedValue] = useState("")
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const navbarRef = useRef(null);
+    const searchRef = useRef(null); // Add this ref
+
+    const clearSearch = () => {
+        setSearchValue("");
+        setDebouncedValue("");
+        setShowSearch(false);
+    };
+
+    // Close search when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (searchRef.current && !searchRef.current.contains(event.target)) {
+                setShowSearch(false);
+            }
+        };
+
+        if (showSearch) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showSearch]);
 
     const navLinks = [
         { name: t("home"), href: "/" },
@@ -28,22 +59,6 @@ const Navbar = () => {
         { name: t("about"), href: "/about" },
         { name: t("contact"), href: "/contact" },
     ]
-
-    // Debounce effect for search
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setDebouncedValue(searchValue)
-        }, 500)
-        return () => clearTimeout(timer)
-    }, [searchValue])
-
-    // Push to query param (or handle search logic)
-    useEffect(() => {
-        if (debouncedValue.trim()) {
-            // nextRouter.push(`/search?query=${encodeURIComponent(debouncedValue)}`); // Uncomment this line if you want to push to search page
-            console.log("Searching for:", debouncedValue);
-        }
-    }, [debouncedValue, nextRouter])
 
     useEffect(() => {
         if (isMobileMenuOpen) {
@@ -57,8 +72,48 @@ const Navbar = () => {
         };
     }, [isMobileMenuOpen]);
 
+    // Debounce effect for search
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedValue(searchValue)
+        }, 500)
+        return () => clearTimeout(timer)
+    }, [searchValue])
+
+    // Push to query param (or handle search logic)
+    useEffect(() => {
+        if (debouncedValue.trim()) {
+            nextRouter.push(`/?searchTerm=${encodeURIComponent(debouncedValue)}`); // Uncomment this line if you want to push to search page
+            console.log("Searching for:", debouncedValue);
+        }
+    }, [debouncedValue, nextRouter])
+
+    const { data: searchResults, isLoading: isSearchLoading } = useQuery({
+        queryKey: ['searchResults', debouncedValue],
+        queryFn: () => fetchSearchResults(debouncedValue),
+        enabled: !!debouncedValue.trim(),
+    });
+
+    useEffect(() => {
+        const updateHeaderHeight = () => {
+            if (navbarRef.current) {
+                document.documentElement.style.setProperty(
+                    '--header-height',
+                    `${navbarRef.current.offsetHeight}px`
+                );
+            }
+        };
+
+        updateHeaderHeight();
+        window.addEventListener('resize', updateHeaderHeight);
+
+        return () => {
+            window.removeEventListener('resize', updateHeaderHeight);
+        };
+    }, []);
+
     return (
-        <nav className="bg-white z-[1100] sticky top-0 shadow-lg">
+        <nav ref={navbarRef} className="bg-white z-[1100] sticky top-0 shadow-lg">
             {/* <PageLayout> */}
             <div className="flex justify-between items-center max-w-7xl mx-auto px-4 py-3">
                 <div className="flex items-center justify-between lg:w-[40rem] w-full">
@@ -102,7 +157,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Right Side - Search + Language Toggle (Desktop) */}
-                <div className="hidden lg:flex items-center gap-4">
+                <div className="hidden lg:flex items-center gap-4" ref={searchRef}>
                     {/* Search Input for Desktop */}
                     <div
                         className={`flex items-center ${showSearch ? "bg-bg-primary px-2 py-[5px] border border-btn-bg/50 rounded-md" : ""
@@ -119,11 +174,15 @@ const Navbar = () => {
                         <button
                             type="button"
                             onClick={() => setShowSearch(!showSearch)}
-                            className="hover:bg-gray-100 rounded-full transition-colors"
+                            className="hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
                         >
                             <Search className="w-4 h-4 text-gray-600" />
                         </button>
                     </div>
+
+                    {showSearch && debouncedValue.trim() && (
+                        <SearchResults isLoading={isSearchLoading} results={searchResults} clearSearch={clearSearch} searchTerm={debouncedValue} />
+                    )}
 
                     {/* Language Toggle for Desktop */}
                     <div className="flex bg-bg-primary p-[3px] border border-btn-bg/50 rounded-md *:rounded-md overflow-hidden">
@@ -135,7 +194,7 @@ const Navbar = () => {
                                     : "text-black cursor-pointer"
                                     }`}
                             >
-                                Eng
+                                {t("english")}
                             </button>
                         </NextIntlLink>
                         {/* 'عربي' */}
@@ -159,7 +218,7 @@ const Navbar = () => {
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm bg-opacity-50 z-40 lg:hidden" onClick={() => setIsMobileMenuOpen(false)}></div>
             )}
             <div
-                className={`fixed top-0 left-0 h-full rounded-r-2xl w-64 bg-white shadow-lg p-6 transform transition-transform duration-300 ease-in-out z-50 lg:hidden
+                className={`fixed top-0 left-0 h-full  w-64 bg-white shadow-lg p-6 transform transition-transform duration-300 ease-in-out z-50 lg:hidden
                     ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
             >
                 <div className="flex justify-between items-center mb-6">
@@ -201,16 +260,18 @@ const Navbar = () => {
                         placeholder={t("search")}
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
-                        className={`w-full bg-transparent text-gray-700 placeholder-gray-500 focus:outline-none pr-2`}
+                        className={`w-full bg-transparent text-gray-700 placeholder-gray-500 focus:outline-none pr-2 cursor-pointer`}
                     />
                     <Search className="w-4 h-4 text-gray-600 flex-shrink-0" />
                 </div>
+
+                <MobileSearchResults isLoading={isSearchLoading} results={searchResults} clearSearch={clearSearch} searchTerm={debouncedValue} />
 
 
                 {/* Language Toggle for Mobile */}
                 <div className="flex bg-bg-primary p-1 border border-btn-bg rounded-md *:rounded-md overflow-hidden w-full">
                     {/* 'Eng' */}
-                    <NextIntlLink href={currentPathname} locale="en" className="flex-1">
+                    <NextIntlLink scroll={false} href={currentPathname} locale="en" className="flex-1">
                         <button
                             className={`px-3 py-1 text-xs font-medium transition-colors w-full h-full ${locale === "en"
                                 ? "bg-btn-bg text-white"
@@ -218,11 +279,11 @@ const Navbar = () => {
                                 }`}
                             onClick={() => setIsMobileMenuOpen(false)} 
                         >
-                            Eng
+                            {t("english")}
                         </button>
                     </NextIntlLink>
                     {/* 'عربي' */}
-                    <NextIntlLink href={currentPathname} locale="ar" className="flex-1">
+                    <NextIntlLink scroll={false} href={currentPathname} locale="ar" className="flex-1">
                         <button
                             className={`px-3 py-1 text-xs font-medium transition-colors w-full h-full ${locale === "ar"
                                 ? "bg-btn-bg text-white"
@@ -230,7 +291,7 @@ const Navbar = () => {
                                 }`}
                             onClick={() => setIsMobileMenuOpen(false)} 
                         >
-                            عربي
+                            {t("arabic")}
                         </button>
                     </NextIntlLink>
                 </div>
