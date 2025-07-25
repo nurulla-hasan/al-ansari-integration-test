@@ -259,7 +259,7 @@
     "failedToLoadFraud": "Failed to load fraud.",
     "failedToDisclaimer": "Failed to load disclaimer.",
     "peopleDetails": "People Details",
-    "failedToLoadPersonDetails": "Failed to load person details.",
+    "failedToLoadPersonDetails": "Failed to load person details.", 
     "personNotFound": "Person not found.",
     "contact": "Contact",
     "email": "Email:",

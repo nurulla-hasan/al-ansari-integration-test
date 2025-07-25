@@ -64,7 +64,7 @@ const PersonDetailsPage = () => {
                                     </div>
 
                                     <div>
-                                        <h3 className="text-lg font-semibold text-text-title mb-4">Contact</h3>
+                                        <h3 className="text-lg font-semibold text-text-title mb-4">{tCommon('contact')}</h3>
                                         <div className="space-y-3">
                                             <div className="flex items-center gap-3">
                                                 <Mail className="w-5 h-5 text-text-muted" />
@@ -84,7 +84,7 @@ const PersonDetailsPage = () => {
 
                         {/* Bottom Section */}
                         <h3 className='text-xl md:text-3xl font-medium text-text-title mb-4'>
-                            Profile Details
+                            {tCommon('profileDetails')}
                         </h3>
 
                         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -92,10 +92,10 @@ const PersonDetailsPage = () => {
                             <div className="lg:col-span-3 space-y-8 border-t border-gray-200 pt-6">
                                 {/* Main Content */}
                                 <div className="space-y-6">
-                                    <p className="text-gray-700 leading-relaxed">{person.bio}</p>
+                                    <p className="text-gray-700 leading-relaxed">{person.bio}</p> 
                                     {person.professional && person.professional.length > 0 && (
                                         <div className="space-y-2">
-                                            <h4 className="text-md font-semibold text-text-title mt-4 mb-2">Professional Highlights</h4>
+                                            <h4 className="text-md font-semibold text-text-title mt-4 mb-2">{tCommon('professionalHighlights')}</h4>
                                             <ul className="list-disc list-inside text-gray-700">
                                                 {person.professional.map((exp, index) => (
                                                     <li key={`prof-exp-${index}`} className="leading-relaxed">{exp}</li>
@@ -105,7 +105,7 @@ const PersonDetailsPage = () => {
                                     )}
                                     {person.awards && person.awards.length > 0 && (
                                         <div className="mt-6">
-                                            <h4 className="text-md font-semibold text-text-title mb-2">Awards & Recognition</h4>
+                                            <h4 className="text-md font-semibold text-text-title mb-2">{tCommon('awardsRecognition')}</h4>
                                             <ul className="list-disc list-inside text-gray-700 space-y-1">
                                                 {person.awards.map((award, index) => (
                                                     <li key={`profile-award-${index}`} className="text-sm">{award}</li>
@@ -132,7 +132,7 @@ const PersonDetailsPage = () => {
                                 {/* Education */}
                                 {person.education && (
                                     <div>
-                                        <h3 className="text-lg font-semibold text-text-title mb-4">Education</h3>
+                                        <h3 className="text-lg font-semibold text-text-title mb-4">{tCommon('education')}</h3>
                                         <div className="space-y-2">
                                             <p className="text-sm text-gray-700">
                                                 {person.education}
@@ -144,7 +144,7 @@ const PersonDetailsPage = () => {
                                 {/* Practice Areas */}
                                 {person.practice && person.practice.length > 0 && (
                                     <div>
-                                        <h3 className="text-lg font-semibold text-text-title mb-4">Practice Areas</h3>
+                                        <h3 className="text-lg font-semibold text-text-title mb-4">{tCommon('practiceAreas')}</h3>
                                         <div className="flex flex-wrap gap-2">
                                             {person.practice.map((area, index) => (
                                                 <span key={`sidebar-area-${index}`} className="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded-full">
@@ -158,7 +158,7 @@ const PersonDetailsPage = () => {
                                 {/* Industry Focus */}
                                 {person.industry && person.industry.length > 0 && (
                                     <div>
-                                        <h3 className="text-lg font-semibold text-text-title mb-4">Industry Focus</h3>
+                                        <h3 className="text-lg font-semibold text-text-title mb-4">{tCommon('industryFocus')}</h3>
                                         <div className="flex flex-wrap gap-2">
                                             {person.industry.map((focus, index) => (
                                                 <span key={`sidebar-focus-${index}`} className="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded-full">
