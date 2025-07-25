@@ -20,7 +20,7 @@ const ContactInfo = () => {
 
     return (
         <PageLayout>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"> 
                 {/* Contact Information */}
                 <div className="space-y-8">
                     {/* Header */}
