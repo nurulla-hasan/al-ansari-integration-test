@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseURL = "http://13.62.48.83:5001";
+export const baseURL = "https://backend.alansarilaw.com";
 
 export const api = axios.create({
   baseURL: baseURL,
