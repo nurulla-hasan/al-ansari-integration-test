@@ -5,8 +5,8 @@ import AboutPageButtons from '@/components/about-components/AboutPageButtons';
 import ClientFocus from '@/components/about-components/ClientFocus';
 import HighestLevel from '@/components/about-components/HighestLevel';
 import LegalPractice from '@/components/about-components/legalPractice';
+import Services from '@/components/home-components/services/Services';
 import SimpleHero from '@/components/shared/simple-hero/SimpleHero';
-import Services from "@/components/home-components/services/Services";
 import { useTranslations } from 'next-intl';
 
 const AboutPage = () => { 
@@ -29,10 +29,10 @@ const AboutPage = () => {
 
             <div className='pb-20'>
                 <AboutHeader />
-                <Services />
                 <LegalPractice />
                 <ClientFocus />
                 <HighestLevel />
+                <Services />
             </div>
         </div>
     );
