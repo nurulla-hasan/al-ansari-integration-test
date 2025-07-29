@@ -27,12 +27,12 @@ const LatestNews = () => {
 
     const updates = responseData?.data?.data;
 
-    const handleScroll = () => {
-        const servicesSection = document.getElementById('services');
-        if (servicesSection) {
-            servicesSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
+    // const handleScroll = () => {
+    //     const servicesSection = document.getElementById('services');
+    //     if (servicesSection) {
+    //         servicesSection.scrollIntoView({ behavior: 'smooth' });
+    //     }
+    // };
 
     return (
         <div className="bg-bg-primary md:py-20 relative overflow-hidden">
@@ -99,10 +99,10 @@ const LatestNews = () => {
                     )}
 
 
-                    <div className='flex items-center flex-col gap-3 mt-8 cursor-pointer' onClick={handleScroll}>
+                    {/* <div className='flex items-center flex-col gap-3 mt-8 cursor-pointer' onClick={handleScroll}>
                         <h3 className='text-text-title'>{t("services")}</h3>
                         <ArrowDown className='text-text-muted animate-bounce' size={26} />
-                    </div>
+                    </div> */}
 
                     {/* Custom Navigation Arrows with Tailwind CSS */}
                     <div className="absolute top-1/2 md:top-1/3 -left-2 -translate-y-1/2 flex items-center justify-center

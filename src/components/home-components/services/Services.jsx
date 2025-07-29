@@ -8,12 +8,12 @@ import React from 'react';
 const Services = () => {
     const t = useTranslations('Services');
 
-    const handleScroll = () => {
-        const contactSection = document.getElementById('contact-us');
-        if (contactSection) {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
+    // const handleScroll = () => {
+    //     const contactSection = document.getElementById('contact-us');
+    //     if (contactSection) {
+    //         contactSection.scrollIntoView({ behavior: 'smooth' });
+    //     }
+    // };
 
     return (
         <div id="services">
@@ -57,10 +57,10 @@ const Services = () => {
                             ))
                         }
                     </div>
-                    <div className='flex items-center flex-col gap-3 mt-8 cursor-pointer' onClick={handleScroll}>
+                    {/* <div className='flex items-center flex-col gap-3 mt-8 cursor-pointer' onClick={handleScroll}>
                         <h3 className='text-text-title'>{t("contactUs")}</h3>
                         <ArrowDown className='text-text-muted animate-bounce' size={26} />
-                    </div>
+                    </div> */}
                 </div>
             </PageLayout>
         </div>
