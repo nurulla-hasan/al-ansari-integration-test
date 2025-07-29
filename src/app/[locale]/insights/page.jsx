@@ -7,7 +7,8 @@ import { useQuery } from '@tanstack/react-query';
 import { api } from '@/utils/api';
 import ErrorDisplay from '@/components/shared/ErrorDisplay';
 import { useTranslations } from 'next-intl';
-import InsightsCardSkeletonLoader from '@/components/shared/InsightsCardSkeletonLoader'; 
+import InsightsCardSkeletonLoader from '@/components/shared/InsightsCardSkeletonLoader';
+import LatestNews from '@/components/home-components/latest-news/LatestNews';
 
 const InsightsPage = () => {
     const tInsights = useTranslations('InsightsPage');
@@ -17,7 +18,7 @@ const InsightsPage = () => {
 
     const breadcrumbs = [
         { name: tNavbar('home'), href: "/" },
-        { name: tSimpleHero('insightsTitle'), href: "/insights" } 
+        { name: tSimpleHero('insightsTitle'), href: "/insights" }
     ];
 
     const { data: updatesResponse, isLoading: isLoadingUpdates, isError: isErrorUpdates } = useQuery({
@@ -48,6 +49,7 @@ const InsightsPage = () => {
                 breadcrumbs={breadcrumbs}
             />
 
+            <LatestNews />
             <PageLayout>
                 <div className='flex flex-col gap-12 md:gap-20'>
                     <div>
@@ -90,7 +92,7 @@ const InsightsPage = () => {
                             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8'>
                                 {
                                     newsletters.slice(0, 2).map((item) => (
-                                        <InsightsCard key={item._id} data={item} pathname={"newsletters"}/>
+                                        <InsightsCard key={item._id} data={item} pathname={"newsletters"} />
                                     ))
                                 }
                             </div>
