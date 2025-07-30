@@ -10,7 +10,7 @@ const ContactPage = () => {
     const tNavbar = useTranslations('Navbar');
 
     return (
-        <div className='min-h-minus-header'>
+        <div className='min-h-minus-header'> 
             <SimpleHero
                 title={tSimpleHero('contactTitle')}
                 breadcrumbs={[

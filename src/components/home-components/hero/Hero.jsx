@@ -22,7 +22,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative min-h-[calc(100vh-88px)] flex items-center justify-center">
+    <section className="relative min-h-[45vh] flex items-center justify-center">
       {/* Background Image with Overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -36,7 +36,7 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         {/* Main Heading */}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-16 sm:mb-20 lg:mb-24 leading-tight">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
           <i className="block font-poltawski">{t('mainHeading')}</i>
         </h1>
 

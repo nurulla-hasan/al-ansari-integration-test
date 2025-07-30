@@ -1,17 +1,32 @@
 "use client";
 import InputField from "@/components/helper/input-helper/InputField";
 import PageLayout from "@/components/layout/PageLayout";
+import { api } from "@/utils/api";
+import { useMutation } from "@tanstack/react-query";
+import { ArrowBigRight, Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useForm } from "react-hook-form"; 
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const ContactUs = () => {
     const t = useTranslations("Contact Us");
     const tCommon = useTranslations("common");
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const { mutate, isPending } = useMutation({
+        mutationFn: (data) => api.post('/dashboard/contact_form', data),
+        onSuccess: (data) => {
+            toast.success("Message sent successfully!");
+        },
+        onError: (error) => {
+            toast.error("Something went wrong!");
+            console.log(error);
+        }
+    })
+
     const onSubmit = (data) => {
-        console.log(data);
+        mutate(data);
     };
 
     return (
@@ -22,7 +37,7 @@ const ContactUs = () => {
                         <Image
                             src="/assets/contact-us.jpg"
                             alt="Contact Us"
-                            fill 
+                            fill
                             style={{ objectFit: 'cover' }}
                             className="rounded-br-4xl"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 30vw"
@@ -58,7 +73,7 @@ const ContactUs = () => {
                                 type="tel"
                                 placeholder={t("phonePlaceholder")}
                                 register={register}
-                                required={false}
+                                required={true}
                                 error={errors.phone}
                             />
                             <div>
@@ -82,19 +97,10 @@ const ContactUs = () => {
                                 className="w-full sm:w-auto px-8 py-3 bg-btn-bg text-white text-sm font-medium rounded-md shadow-md
                                            transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
                             >
-                                {t("sendMessage")}
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-5 w-5"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
+                                {
+                                    isPending ? <><Loader2 className="animate-spin" />Sending</> : <>{t("sendMessage")} <ArrowBigRight /></>
+                                } 
+
                             </button>
                         </form>
                     </div>

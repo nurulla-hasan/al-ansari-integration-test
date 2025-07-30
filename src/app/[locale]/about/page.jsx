@@ -8,6 +8,8 @@ import LegalPractice from '@/components/about-components/legalPractice';
 import Services from '@/components/home-components/services/Services';
 import PageLayout from '@/components/layout/PageLayout';
 import SimpleHero from '@/components/shared/simple-hero/SimpleHero';
+import { api } from '@/utils/api';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 
 const AboutPage = () => {
@@ -19,17 +21,28 @@ const AboutPage = () => {
         { name: tNavbar('home'), href: "/" },
         { name: tSimpleHero('aboutUsTitle'), href: "/about" },
     ];
+
+    const {data, isLoading}= useQuery({
+        queryKey: ["about"],
+        queryFn: () => api.get('/dashboard/get_about_count')
+    })
+
+    const stateData = data?.data?.data
+    const totalHours = stateData?.totalHours;
+    const totalCases = stateData?.totalCases;
+    const totalClients = stateData?.totalClients;
+
     const stats = [
         {
-            number: "20K",
+            number: totalHours,
             labelKey: "totalProBonoHours",
         },
         {
-            number: "3.8K+",
-            labelKey: "clients",
+            number: totalClients,
+            labelKey: "clients", 
         },
         {
-            number: "10k+",
+            number: totalCases,
             labelKey: "cases",
         },
     ];

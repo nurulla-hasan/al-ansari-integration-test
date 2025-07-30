@@ -1,12 +1,16 @@
 "use client"
 
 import { useForm } from "react-hook-form"
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import { Facebook, Twitter, Instagram, Linkedin, Loader2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useTranslations } from "next-intl" 
+import { useTranslations } from "next-intl"
+import { useMutation } from "@tanstack/react-query"
+import { api } from "@/utils/api"
+import { toast } from "sonner"
 
 const Footer = () => {
+
     const {
         register,
         handleSubmit,
@@ -16,8 +20,21 @@ const Footer = () => {
 
     const t = useTranslations('Footer')
 
+    const {mutate, isPending } = useMutation({
+        mutationFn: (data) => api.post('/dashboard/send_subscribe', data),
+        onSuccess: (data) => {
+            toast.success("Message sent successfully!");
+        },
+        onError: (error) => {
+            toast.error("Something went wrong!");
+            console.log(error);
+        }
+    })
+
     const onSubmit = (data) => {
-        console.log("Newsletter subscription:", data.email)
+        mutate({
+            email: data.email,
+        })
         reset()
     }
 
@@ -80,9 +97,11 @@ const Footer = () => {
                                 />
                                 <button
                                     type="submit"
-                                    className="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-medium rounded-md transition-colors whitespace-nowrap cursor-pointer"
+                                    className="flex items-center px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-medium rounded-md transition-colors whitespace-nowrap cursor-pointer"
                                 >
-                                    {t('subscribeButton')}
+                                    {
+                                        isPending ? <><Loader2 className="animate-spin mr-2" /> subscribing</> : t('subscribeButton')
+                                    }
                                 </button>
                             </form>
                         </div>

@@ -7,6 +7,7 @@ import { Poppins, Poltawski_Nowy } from 'next/font/google';
 import Navbar from "@/components/shared/navbar/Navbar";
 import Footer from "@/components/shared/footer/Footer";
 import QueryProvider from "@/providers/QueryProvider";
+import { Toaster } from "sonner";
 
 const poltawski = Poltawski_Nowy({
   variable: "--font-poltawski",
@@ -50,6 +51,7 @@ export default async function Locallayout({ children, params }) {
             <Footer />
           </QueryProvider>
         </NextIntlClientProvider>
+        <Toaster richColors  />
       </body>
     </html>
   );

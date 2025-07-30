@@ -35,7 +35,7 @@ const LatestNews = () => {
     // };
 
     return (
-        <div className="bg-bg-primary md:py-20 relative overflow-hidden">
+        <div className="bg-bg-primary md:py-0 relative overflow-hidden">
             <SoftPatternColumns />
             <PageLayout>
                 <div className="text-center relative z-10 mb-5 md:mb-16">
