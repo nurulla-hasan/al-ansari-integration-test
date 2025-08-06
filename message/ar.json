@@ -145,7 +145,10 @@
     "heroTitle": "الرؤى",
     "updatesSectionTitle": "التحديثات",
     "eventsSectionTitle": "الفعاليات",
-    "newslettersSectionTitle": "النشرات الإخبارية"
+    "newslettersSectionTitle": "النشرات الإخبارية",
+    "noUpdatesAvailable": "لا توجد تحديثات متاحة",
+    "noEventsAvailable": "لا توجد فعاليات متاحة",
+    "noNewslettersAvailable": "لا توجد نشرات اخبارية متاحة"
   },
   "CsrPage": {
     "noCsrAvailable": "لا توجد بيانات متاحة للمسؤولية الاجتماعية للشركات"

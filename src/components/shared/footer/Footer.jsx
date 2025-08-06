@@ -5,7 +5,7 @@ import { Facebook, Twitter, Instagram, Linkedin, Loader2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useTranslations } from "next-intl"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { api } from "@/utils/api"
 import { toast } from "sonner"
 
@@ -19,6 +19,14 @@ const Footer = () => {
     } = useForm()
 
     const t = useTranslations('Footer')
+
+    const {data: socialMediaResponse, isLoading: isLoadingSocialMedia}=useQuery({
+        queryKey: ['socialMedia'],
+        queryFn: () => api.get('/dashboard/social_media'),
+    })
+
+    const socialMedia = socialMediaResponse?.data?.data || [];
+    const{facebook, twitter, instagram, linkedin} = socialMedia;
 
     const {mutate, isPending } = useMutation({
         mutationFn: (data) => api.post('/dashboard/send_subscribe', data),
@@ -131,25 +139,25 @@ const Footer = () => {
                                 </h4>
                                 <div className="flex space-x-4">
                                     <Link
-                                        href="#"
+                                        href={`${facebook}`}
                                         className="w-8 h-8 border border-btn-bg rounded-full flex items-center justify-center hover:bg-btn-bg/50 transition-colors"
                                     >
                                         <Facebook className="w-4 h-4 text-btn-bg" />
                                     </Link>
                                     <Link
-                                        href="#"
+                                        href={`${twitter}`}
                                         className="w-8 h-8 border border-btn-bg rounded-full flex items-center justify-center hover:bg-btn-bg/50 transition-colors"
                                     >
                                         <Twitter className="w-4 h-4 text-btn-bg" />
                                     </Link>
                                     <Link
-                                        href="#"
+                                        href={`${instagram}`}
                                         className="w-8 h-8 border border-btn-bg rounded-full flex items-center justify-center hover:bg-btn-bg/50 transition-colors"
                                     >
                                         <Instagram className="w-4 h-4 text-btn-bg" />
                                     </Link>
                                     <Link
-                                        href="#"
+                                        href={`${linkedin}`}
                                         className="w-8 h-8 border border-btn-bg rounded-full flex items-center justify-center hover:bg-btn-bg/50 transition-colors"
                                     >
                                         <Linkedin className="w-4 h-4 text-btn-bg" />

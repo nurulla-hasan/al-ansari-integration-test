@@ -147,7 +147,10 @@
     "heroTitle": "Insights",
     "updatesSectionTitle": "Updates",
     "eventsSectionTitle": "Events",
-    "newslettersSectionTitle": "Newsletters"
+    "newslettersSectionTitle": "Newsletters",
+    "noUpdatesAvailable": "No updates available",
+    "noEventsAvailable": "No events available",
+    "noNewslettersAvailable": "No newsletters available"
   },
   "CsrPage": {
     "noCsrAvailable": "No CSR data available"

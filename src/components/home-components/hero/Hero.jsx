@@ -1,25 +1,10 @@
 
 "use client"; 
 
-import { useTranslations } from "next-intl";
+import { baseURL } from "@/utils/api";
 
-const Hero = () => { 
-  const t = useTranslations('Hero'); 
-
-  const stats = [
-    {
-      number: "20K",
-      labelKey: "totalProBonoHours",
-    },
-    {
-      number: "3.8K+",
-      labelKey: "clients",
-    },
-    {
-      number: "10k+",
-      labelKey: "cases",
-    },
-  ];
+const Hero = ({ content}) => {
+  const { imageHero, textHero } = content
 
   return (
     <section className="relative min-h-[45vh] flex items-center justify-center">
@@ -27,7 +12,7 @@ const Hero = () => {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('/assets/hero.png')",
+          backgroundImage: `url('${baseURL}${imageHero}')`,
         }}
       >
         <div className="absolute inset-0 bg-black/40"></div>
@@ -37,7 +22,7 @@ const Hero = () => {
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         {/* Main Heading */}
         <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
-          <i className="block font-poltawski">{t('mainHeading')}</i>
+          <i className="block font-poltawski">{textHero}</i>
         </h1>
 
         {/* Statistics */}
